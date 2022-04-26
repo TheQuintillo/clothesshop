@@ -1,0 +1,34 @@
+.suscribe{
+    display: flex;
+    justify-content: center;
+    background-color: #ddd;
+    padding: 40px 0;
+    gap: 200px;
+    margin: 60px 0;
+}
+
+.suscribe_offer h4{
+    margin: 0;
+}
+
+.suscribe_offer p{
+    margin: 10px 0;
+}
+
+
+.form_suscribe input{
+    min-width: 300px;
+    padding: 15px;
+    padding-left: 13px;
+    border: none;
+}
+
+.form_suscribe input:last-child{
+    min-width: 150px;
+    border: 0;
+    background-color: rgb(232, 83, 83);
+    color: #FFF;
+    padding: 15px 50px;
+    letter-spacing: 0px;
+    font-weight: 750;
+}
