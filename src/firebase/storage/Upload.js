@@ -1,9 +1,11 @@
 import { useAddFile } from "../hooks/useAddFile";
+import { useSearchFile } from "../hooks/useSearchFile";
 
 // Create a reference to the file we want to download
 
 function Upload() {
-  const { archivoHandler, uploadHandler, nameHandler, addFile, searchDATA, selectID, selectIdData } = useAddFile();
+  const { archivoHandler, uploadHandler, nameHandler } = useAddFile();
+  const { refreshGalery, searchDATA, selectID, selectIdData } = useSearchFile();
 
   selectID();
 
