@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "../css/main.css";
-import { useAddFile } from "../firebase/hooks/useAddFile";
+import { useSearchFile } from "../firebase/hooks/useSearchFile";
 
 function Main() {
-  const { refreshGalery } = useAddFile();
+  const { refreshGalery } = useSearchFile();
   refreshGalery();
-  
   return (
     <div className='container_main'>
       <div className='image_offer'>

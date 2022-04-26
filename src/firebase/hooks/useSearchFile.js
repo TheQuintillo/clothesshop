@@ -1,65 +1,13 @@
-import { useState, useEffect } from "react";
-import { storage } from "../firebaseConfig";
 import { db } from "../firebaseConfig";
-import { collection, onSnapshot, doc, setDoc, query, getDocs } from "firebase/firestore";
-import { ref, uploadBytes, getStorage, getDownloadURL } from "firebase/storage";
+import { collection, query, getDocs } from "firebase/firestore";
 
-export const useAddFile = () => {
-  const [nameFile, setNameFile] = useState("");
-  const [storageRuth, setStorageRuth] = useState("");
-  const [file, setFile] = useState(null);
 
-    const archivoHandler = (e)=> {
-      const path = 'clothes_shop/web_images/';
-      const fileInput = e.target.files[0];
-      setFile(fileInput);
-      const storageRef = ref(storage, `${path}${nameFile}`);
-      setStorageRuth(storageRef);
-
-    }
-
-    const uploadHandler = async (e) =>{
-      e.preventDefault();
-      const upload = await uploadBytes(storageRuth, file).then((snapshot) => {
-      });
-      
-      const downloadURL = await getDownloadURL(storageRuth).then(async (snapshot2) => {
-        if(snapshot2){
-          addFile(snapshot2)
-        }
-      });
-      
-      console.log(storageRuth);
-    }
-
-    const nameHandler = (e)=> {
-      const name= e.target.value;
-      setNameFile(name);
-      const path = 'clothes_shop/web_images/';
-      const storageRef = ref(storage, `${path}${nameFile}`);
-      setStorageRuth(storageRef); 
-    } 
-
-    const addFile = async (url) => {
-      try {
-        //AGREGAR ARCHIVO CON ID Y CAMPOS A LA COLECCION 
-        const docRef = await setDoc(doc(db, "galery", nameFile), {
-            name: nameFile,
-            url: url,
-            price: 2000
-          });
-    
-          // LEER  TODOS LOS ARCHIVOS DE COLECCION 1mera forma
-          refreshGalery();
-          
-        }catch (e) {
-            console.error("Error adding document: ", e);
-        }
-      }
+export const useSearchFile = () => {
 
       const refreshGalery =  async () => {
         const q = query(collection(db, "galery"));
           const unsubscribe = await getDocs(q);
+          console.log(unsubscribe);
           const divGalery = document.querySelector('.grid_search_section');
           divGalery.innerHTML = "";
           var fragment = document.createDocumentFragment();
@@ -127,7 +75,9 @@ export const useAddFile = () => {
           }
 
     return {
-      archivoHandler, uploadHandler, nameHandler, addFile
+      refreshGalery, searchDATA, selectID, selectIdData, useSearchFile
     }
-  
+
+
 }
+
