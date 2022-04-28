@@ -1,9 +1,13 @@
 import { db } from "../firebaseConfig";
 import { collection, query, getDocs } from "firebase/firestore";
+import { storage } from "../firebaseConfig";
+import { ref, deleteObject } from "firebase/storage";
+import { doc, deleteDoc } from "firebase/firestore";
 
 
 export const useSearchFile = () => {
 
+      let input = document.querySelectorAll('.input_search');
       const refreshGalery =  async () => {
         const q = query(collection(db, "galery"));
           const unsubscribe = await getDocs(q);
@@ -31,16 +35,15 @@ export const useSearchFile = () => {
               
             const searchDATA = async (e) =>{
             e.preventDefault();
-            const fileName = e.target.value;
+            input = e.target.value.toLowerCase();
             const q = query(collection(db, "galery"));
             const unsubscribe = await getDocs(q);
-            const searchID = await unsubscribe.docs.find(el => el.id === fileName);
+            const searchID = await unsubscribe.docs.find(el => el.id === input);
             const search_img = document.querySelector('.search_img');
             const imgSearch = document.createElement('img');
             imgSearch.setAttribute('src', searchID.data().url);
             search_img.innerHTML= "";
             search_img.appendChild(imgSearch);
-            const dataID = searchID.data();
           }
 
          
@@ -51,7 +54,6 @@ export const useSearchFile = () => {
             selectID.innerHTML = "";
             unsubscribe.forEach((doc) => {
               const fireID = doc._key.path.segments[6];
-              const fireData = doc._document.data.value.mapValue.fields.url.stringValue;
               const optionID = document.createElement('option');
               optionID.setAttribute('value', fireID );
               optionID.setAttribute('onClick', 'selectIdData');
@@ -62,20 +64,38 @@ export const useSearchFile = () => {
           }  
 
           const selectIdData = async (e) => {
-            const select = e.target.value;
+            input = e.target.value.toLowerCase();
             const q = query(collection(db, "galery"));
             const unsubscribe = await getDocs(q);
-            const searchID = await unsubscribe.docs.find(el => el.id === select);
+            const searchID = await unsubscribe.docs.find(el => el.id === input);
             const search_img = document.querySelector('.search_img');
             const imgSearch = document.createElement('img');
             imgSearch.setAttribute('src', searchID.data().url);
             search_img.innerHTML= "";
             search_img.appendChild(imgSearch);
-            const dataID = searchID.data();
+            
           }
 
+          const deleteFile = async (e) => {
+            // Create a reference to the file to delete STORAGE
+              const path = 'clothes_shop/web_images/';
+              const search_img = document.querySelector('.search_img');
+              const desertRef = ref(storage, `${path}${input}`);
+              // Delete the file
+              deleteObject(desertRef).then(() => {
+                // File deleted successfully
+              }).catch((error) => {
+                // Uh-oh, an error occurred!
+              });
+               // FIRESTORE
+               await deleteDoc(doc(db, 'galery', input));
+               selectID();
+               refreshGalery();
+               search_img.innerHTML = "";
+            }
+
     return {
-      refreshGalery, searchDATA, selectID, selectIdData, useSearchFile
+      refreshGalery, searchDATA, selectID, selectIdData, useSearchFile, deleteFile
     }
 
 
