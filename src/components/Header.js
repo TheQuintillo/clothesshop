@@ -3,7 +3,6 @@ import "../css/header.css";
 import SignIn from './SignIn';
 import Upload from '../firebase/storage/Upload';
 
-
 function Header() {
   return (
     <header>
