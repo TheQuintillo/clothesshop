@@ -1,11 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Button, Form} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import useSignSesion from './Hooks/useSignSesion';
+import CreateUser from '../firebase/auth/createUser';
 
 function SignIn() {
 
+  const [pulsado, setPulsado] = useState(false);
   const { handleChangeEmail, handleChangePassword, SignUser, show, handleClose, handleShow, signin, closeSesion }=useSignSesion();
+
+  const register = () =>{
+    if(pulsado){
+     return <><CreateUser /></>
+    }else{
+     return <>
+      <Button variant="secondary" onClick={handleClose}>
+          Cerrar
+      </Button>
+      <Button variant="primary" onClick={() => {setPulsado(true)}}>
+          Regístrate
+      </Button>
+    </>
+    }
+  }
 
   return (
         (signin? <li className='menu_show'><a href="localhost:3000" className='link_li'>Mi Cuenta</a>
@@ -36,16 +53,11 @@ function SignIn() {
           </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Cerrar
-            </Button>
-            <Button variant="primary">
-              Regístrate
-            </Button>
+            {register()}
           </Modal.Footer>
         </Modal>
       </>
-         )
+         ) 
   )
 }
 
