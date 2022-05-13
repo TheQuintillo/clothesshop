@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { auth } from '../../firebase/firebaseConfig';
 import { signInWithEmailAndPassword, signOut, updateEmail, sendPasswordResetEmail, deleteUser, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { storage } from "../../firebase/firebaseConfig";
 import { db } from "../../firebase/firebaseConfig";
 import { collection, query, getDocs } from 'firebase/firestore';
 import { doc, setDoc } from "firebase/firestore";
@@ -35,7 +34,7 @@ function useSignSesion() {
     const errorCode = error.code;
     const errorMessage = error.message;
     console.log(errorMessage);
-    if(errorCode == "auth/user-not-found" || "auth/invalid-email"){
+    if(errorCode === "auth/user-not-found" || "auth/invalid-email"){
     alert("USUARIO O CONTRASEÑA INCORRECTOS");
     }
   });
@@ -59,9 +58,9 @@ function useSignSesion() {
 
       const q = query(collection(db, "user"));
             const unsubscribe = await getDocs(q);
-            const register = unsubscribe.docs.find(el => el._key.path.segments[6] == user.uid)
+            const register = unsubscribe.docs.find(el => el._key.path.segments[6] === user.uid)
               
-              if(register == undefined){
+              if(register === undefined){
                 try { 
                 //AGREGAR ARCHIVO CON ID Y CAMPOS A LA COLECCION 
                 setDoc(doc(db, "user", user.uid), {
@@ -84,6 +83,8 @@ function useSignSesion() {
     const email = error.email;
     // The AuthCredential type that was used.
     const credential = GoogleAuthProvider.credentialFromError(error);
+
+    console.log(errorCode, errorMessage, email, credential);
     // ...
   });
 
@@ -144,6 +145,8 @@ if(window.confirm("¿Estás seguro de que quieres borrar la cuenta?")){
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
+
+      console.log(errorCode, errorMessage);
       // ..
     });
   }
