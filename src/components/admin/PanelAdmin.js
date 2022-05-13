@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Upload from '../../firebase/storage/Upload';
 import usePanelAdmin from '../Hooks/usePanelAdmin';
 
@@ -14,7 +14,7 @@ function PanelAdmin() {
         <h1>PANEL ADMINISTRADOR</h1>
         <Upload />
     </div>
-  ):(<li><a onClick={adminPanel}>Panel del Administrador</a></li>))
+  ):(<li><a href="#" onClick={adminPanel}>Panel del Administrador</a></li>))
 }
 
 export default PanelAdmin

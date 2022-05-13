@@ -11,10 +11,10 @@ function usePanelAdmin() {
     console.log(user);
     const q = query(collection(db, "user"));
               const unsubscribe = await getDocs(q);
-              const adminUser = unsubscribe.docs.find((doc) => user.uid == doc._key.path.segments[6]);
+              const adminUser = unsubscribe.docs.find((doc) => user.uid === doc._key.path.segments[6]);
                 const rol = adminUser._document.data.value.mapValue.fields.rol.stringValue;
                 console.log(adminUser);
-                if(rol == "admin"){
+                if(rol === "admin"){
                   setAdmin(true);
                 }
   }
