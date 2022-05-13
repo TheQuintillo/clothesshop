@@ -14,7 +14,7 @@ function PanelAdmin() {
         <h1>PANEL ADMINISTRADOR</h1>
         <Upload />
     </div>
-  ):(<li><a href="#" onClick={adminPanel}>Panel del Administrador</a></li>))
+  ):(<li><button onClick={adminPanel}>Panel del Administrador</button></li>))
 }
 
 export default PanelAdmin
