@@ -1,17 +1,12 @@
-import React from "react";
+
 import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { auth } from "../firebaseConfig";
-import { Button, Form} from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-
-function CreateUser() {
+function useCreateUser() {
 
     const crearUsuario = async (e) => {
         e.preventDefault();
-        let email = document.getElementById('email').value;
-        let password = document.getElementById('password').value;
-      
+        let email = document.querySelector('.email').value;
+        let password = document.querySelector('.password').value;
        await createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           // Signed in
@@ -36,25 +31,9 @@ function CreateUser() {
 }
 
   return (
-
-      <>
-        <Form>
-  <Form.Group className="mb-3" controlId="formBasicEmail">
-    <Form.Label>Email</Form.Label>
-    <Form.Control id="email" type="email" placeholder="Introduce tu Email" />
-  </Form.Group>
-
-  <Form.Group className="mb-3" controlId="formBasicPassword">
-    <Form.Label>Password</Form.Label>
-    <Form.Control id="password" type="password" placeholder="Password" />
-  </Form.Group>
-  <Button variant="primary" type="submit" onClick={crearUsuario}>
-    Registrarse
-  </Button>
-</Form>
-      </>
+      {crearUsuario}
   )
 }
 
-export default CreateUser
+export default useCreateUser
 

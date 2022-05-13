@@ -1,5 +1,9 @@
 /* ---- offer main ---- */
-
+.container_main{
+    position: relative;
+    top:3rem;
+    z-index: -10;
+}
 .image_offer{
     background-image: url(../img/imagen_main_1.jpg);
     background-size: cover;

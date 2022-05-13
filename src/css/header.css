@@ -9,6 +9,8 @@ header{
 /* ------ section_user ----- */
 
 .section_user{
+    position: fixed;
+    width: 100%;
     background-color: #1e1e27;
     display: flex;
     justify-content: space-between;
@@ -49,6 +51,7 @@ header{
     --clip: polygon(0 0, 100% 0, 100% 0, 0 0);
     border-right: 1px solid #dddd;
     height: 100%;
+    z-index: 1000;
 }
 
 .link_li{
@@ -72,6 +75,7 @@ header{
     padding: 0;
     transition: 0.3s;
     width: max-content;
+    z-index: 1000;
 }
 
 .submenu{
@@ -100,6 +104,9 @@ header{
 .nav_container{
     width: 100%;
     height: auto;
+    position: relative;
+    top: 3rem;
+    z-index: -1;
 }
 
 .nav{
@@ -139,3 +146,53 @@ header{
 }
 
 /* ------ FIN nav_container ----- */
+
+
+.panel_user_container{
+    display: flex;
+    padding: 1rem;
+    flex-direction: column;
+    background-color: #bbb;
+    height: 100vh;
+    width: auto;
+    position: absolute;
+    right: 0;
+    z-index: 10;
+}
+
+.panel_user_show{
+    clip-path: polygon(100% 0, 0 0, 0 100%, 100% 100%);
+    transition: 0.5s;
+}
+
+.configClose{
+    transition: 0.5s;
+    clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+}
+.panel_user_container li{
+    display: block;
+    margin-bottom: 1rem;
+    list-style: none;
+}
+
+.panel_user_container a{
+    text-decoration: none;
+    color:#FFF;
+}
+
+.email_green{
+    font-weight: 800;
+    color: rgb(39, 166, 39);
+}
+
+.email_red{
+    font-weight: 800;
+    color: rgb(159, 5, 5);
+}
+
+.name img{
+    object-fit: cover;
+    border-radius: 50%;
+    object-position: center;
+    
+}

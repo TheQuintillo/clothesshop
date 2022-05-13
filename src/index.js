@@ -5,7 +5,6 @@ import reportWebVitals from './reportWebVitals';
 import Header from './components/Header';
 import Main from './components/Main';
 import Footer from './components/Footer';
-import PanelAdmin from './components/admin/PanelAdmin';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,7 +12,6 @@ root.render(
     <Header />
     <Main />
     <Footer />
-    <PanelAdmin />
   </React.StrictMode>
 );
 
