@@ -4,13 +4,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import useSignSesion from './Hooks/useSignSesion';
 import useCreateUser from '../firebase/auth/useCreateUser';
 import '../css/header.css';
-import Cookies from 'universal-cookie';
 import PanelAdmin from './admin/PanelAdmin';
 
 function SignIn(props) {
   
   const [pulsado, setPulsado] = useState(false);
-  const { handleChangeEmail, handleChangePassword, cookies, setAdmin, name, photo,SignUser, show, email, handleClose, handleShow, signin, closeSesion, resetPassword, emailUpdate, userDelete, GoogleAuth }=useSignSesion();
+  const { handleChangeEmail, handleChangePassword, cookies, name, photo,SignUser, show, handleClose, handleShow, signin, closeSesion, resetPassword, emailUpdate, userDelete, GoogleAuth }=useSignSesion();
   const { crearUsuario } = useCreateUser();
   console.log(cookies.get("token"));
 
