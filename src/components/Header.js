@@ -2,8 +2,11 @@ import React from 'react';
 import "../css/header.css";
 import SignIn from './SignIn';
 import Upload from '../firebase/storage/Upload';
+import PanelAdmin from './admin/PanelAdmin';
 
 function Header() {
+
+  
   return (
     <header>
       <div className='section_user'>
@@ -22,6 +25,7 @@ function Header() {
       </div>
       </div>
       <div className='nav_container'>
+      
       <div className='nav'>
         <img src="" alt="logo"/>
         <nav>
