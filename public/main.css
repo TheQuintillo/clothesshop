@@ -215,7 +215,7 @@ header{
     transition: 0.3s;
 }
 
-.sections a:hover{
+.sections_hover a:hover{
     color:#bbb;
     font-size: 30px;
     padding: 10px 75px;
@@ -482,8 +482,4 @@ header{
     height: 300px;
     object-fit: cover;
     object-position: center;
-}
-
-body{
-    background-color: black;
 }
