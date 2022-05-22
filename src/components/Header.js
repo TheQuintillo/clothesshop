@@ -24,7 +24,6 @@ function Header() {
       </div>
       </div>
       <div className='nav_container'>
-      
       <div className='nav'>
         <img src="" alt="logo"/>
         <nav>
