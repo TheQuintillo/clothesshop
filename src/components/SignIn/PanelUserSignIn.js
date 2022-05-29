@@ -4,32 +4,23 @@ import PanelAdmin from '../admin/PanelAdmin';
 import '../../css/header.css';
 import usePanelAdmin from '../Hooks/usePanelAdmin';
 
-function PanelUserSignIn() {
-    const { cookies, closeSesion, resetPassword, emailUpdate, userDelete, GoogleAuth }=useSignSesion();
+function PanelUserSignIn(props) {
+    const { cookies, emailUpdate}=useSignSesion();
     const { admin, adminPanel} = usePanelAdmin();
 
     adminPanel();
-    const user = cookies.get("token");
+    const userProfile = cookies.get("token");
+    console.log(userProfile)
     
-
-  return (
-    <>
-    <li className='menu_show'><a href="http://localhost:3000" className='link_li'>Mi Cuenta</a>
-      <ul className='submenu'>
-        <li><a href="localhost:3000" onClick={()=>{let config_close = document.querySelector('.panel_user_container');
-        config_close.classList.remove('configClose');
-          config_close.classList.add('panel_user_show');
-                  }}>Configuración</a></li>
-        <li><a href="localhost:3000" onClick={() => {closeSesion()}}>Cerrar Sesión</a></li>
-      </ul>
-    </li>
+  return (<>
+    
     <div className='panel_user_container configClose'>
     <h1>Configuración de Cuenta</h1>
     <div className='user_image'>
 
     </div>
     <div className='name'>
-      <p>{user.name}</p><img src={user.photo} alt="user_photo"></img>
+      <p>{userProfile.name}</p><img src={userProfile.photo} alt="user_photo"></img>
     </div>
         <ul>
         <li>
@@ -52,15 +43,14 @@ function PanelUserSignIn() {
             <div className='emailUpdate'></div>
         </li> 
         <li>
-            <a href='http://localhost:3000' onClick={resetPassword}>Cambiar contraseña</a>
-            <div className='send_email'></div>
+            {props.resetPassword}
         </li>
         <li>
             <a href='http://localhost:3000'>Volver a enviar correo de confirmación</a>
         </li>
         {admin && <PanelAdmin />}
         <li>
-            <a href='http://localhost:3000' onClick={userDelete}>Borrar Cuenta</a>
+            {props.deleteAccount}
         </li>
         </ul>
         <button onClick={()=>{let config_close = document.querySelector('.panel_user_container');
@@ -69,7 +59,7 @@ function PanelUserSignIn() {
                   }}>Cerrar</button>
     </div>
     </>
-  )
+    ) 
 }
 
 export default PanelUserSignIn
