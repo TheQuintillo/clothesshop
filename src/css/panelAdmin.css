@@ -8,3 +8,11 @@
     max-width: 500px;
     height: auto;
 }
+
+.upload_container{
+    flex-direction: row;
+}
+
+.upload_container input{
+    margin: 1px 3px;
+}

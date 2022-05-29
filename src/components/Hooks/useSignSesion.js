@@ -14,8 +14,7 @@ function useSignSesion() {
   const [signin, setSignin] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [photo, setPhoto] = useState(null);
+  const [user, setUser] = useState(false);
   
   const SignUser = (e) =>{
     e.preventDefault();
@@ -24,9 +23,13 @@ function useSignSesion() {
   .then((userCredential) => {
     // Signed in
     const user = userCredential.user;
+
+    if(user){setUser(true)}
     
-    setName(user.email);
-    if(user.accessToken){setSignin(true)}else{return}
+    if(user.accessToken){
+      setSignin(true); 
+      cookies.set("token", {token: user.accessToken, name: user.email, photo: ""}, {path: "/", secure:true, expires: new Date("2022-07-01")});
+    }else{return}
     console.log(user);
     
   })
@@ -50,11 +53,11 @@ function useSignSesion() {
     const token = credential.accessToken;
     // The signed-in user info.
     const user = result.user;
-    
+    if(user){setUser(true)}
+
     setSignin(true);
-    setName(user.displayName);
-    setPhoto(user.providerData[0].photoURL);
-      console.log(user);
+    cookies.set("token", {token: token, name: user.displayName, photo: user.providerData[0].photoURL}, {path: "/", secure:true, expires: new Date("2022-07-01")});
+    console.log(user);
 
       const q = query(collection(db, "user"));
             const unsubscribe = await getDocs(q);
@@ -67,7 +70,8 @@ function useSignSesion() {
                     user: user.email,
                     rol: "user",
                   });
-                  cookies.set("token", token, {path: "/", secure:true, expires: new Date("2022-07-01")});
+                  cookies.set("token", {token: token, name: user.displayName, photo: user.providerData[0].photoURL}, {path: "/", secure:true, expires: new Date("2022-07-01")});
+                  
                   // LEER  TODOS LOS ARCHIVOS DE COLECCION 1mera forma
                 }catch (e) {
                     console.error("Error adding document: ", e);
@@ -123,6 +127,7 @@ if(window.confirm("¿Estás seguro de que quieres borrar la cuenta?")){
   deleteUser(user).then(() => {
     // User deleted.
     setSignin(false);
+    setUser(false);
   }).catch((error) => {
     // An error ocurred
     // ...
@@ -155,6 +160,7 @@ if(window.confirm("¿Estás seguro de que quieres borrar la cuenta?")){
   signOut(auth).then(() => {
     // Sign-out successful.
       setSignin(false);
+      setUser(false);
     console.log(auth);
   }).catch((error) => {
     // An error happened.
@@ -169,7 +175,7 @@ if(window.confirm("¿Estás seguro de que quieres borrar la cuenta?")){
     setPassword(value);
   }
   return (
-    {handleChangeEmail, handleChangePassword, SignUser, show, handleClose, handleShow, email, password, signin, photo, cookies,closeSesion, resetPassword, emailUpdate, userDelete, GoogleAuth, name }
+    {handleChangeEmail, handleChangePassword, SignUser, show, handleClose, handleShow, email, password, signin, cookies,closeSesion, resetPassword, emailUpdate, userDelete, GoogleAuth}
   )
 }
 
